@@ -19,11 +19,9 @@ function App() {
   const [disease, setDisease] = useState("");
   const [editId, setEditId] = useState("");
 
-  // -------------------------
-  // Load Patients
-  // -------------------------
+  
   const loadPatients = async () => {
-    const res = await axios.get("http://localhost:3000/patients", {
+    const res = await axios.get("https://patient-crud-lf8v.onrender.com/patients", {
       headers: { Authorization: token }
     });
     setPatients(res.data);
@@ -33,22 +31,20 @@ function App() {
     if (token) loadPatients();
   }, [token]);
 
-  // -------------------------
-  // Signup
-  // -------------------------
+  
   const signup = async () => {
-    await axios.post("http://localhost:3000/signup", {
+    await axios.post("https://patient-crud-lf8v.onrender.com/signup", {
       name, email, password
     });
     alert("Signup Done. Now Login.");
     setIsLogin(true);
   };
 
-  // -------------------------
+  
   // Login
-  // -------------------------
+  
   const login = async () => {
-    const res = await axios.post("http://localhost:3000/login", {
+    const res = await axios.post("https://patient-crud-lf8v.onrender.com/login", {
       email, password
     });
 
@@ -60,20 +56,20 @@ function App() {
     }
   };
 
-  // -------------------------
+  
   // Add or Edit Patient
-  // -------------------------
+  
   const savePatient = async () => {
     if (editId) {
       await axios.put(
-        `http://localhost:3000/patients/${editId}`,
+        `https://patient-crud-lf8v.onrender.com/patients/${editId}`,
         { name: pname, age, disease },
         { headers: { Authorization: token } }
       );
       setEditId("");
     } else {
       await axios.post(
-        "http://localhost:3000/patients",
+        "https://patient-crud-lf8v.onrender.com/patients",
         { name: pname, age, disease },
         { headers: { Authorization: token } }
       );
@@ -85,27 +81,27 @@ function App() {
     loadPatients();
   };
 
-  // -------------------------
+  
   // Delete
-  // -------------------------
+
   const del = async (id) => {
-    await axios.delete(`http://localhost:3000/patients/${id}`, {
+    await axios.delete(`https://patient-crud-lf8v.onrender.com/patients/${id}`, {
       headers: { Authorization: token }
     });
     loadPatients();
   };
 
-  // -------------------------
+  
   // Logout
-  // -------------------------
+  
   const logout = () => {
     localStorage.removeItem("token");
     setToken("");
   };
 
-  // -------------------------
+  
   // UI
-  // -------------------------
+
   if (!token)
     return (
       <div className="container mt-5" style={{ maxWidth: "400px" }}>
